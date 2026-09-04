@@ -1,0 +1,10 @@
+install packages 
+express dotenv sequelize mysql2
+
+
+npx sequelize-cli init
+
+
+create a model
+
+npx sequelize-cli model:generate --name User --attributes name:string,email:string
