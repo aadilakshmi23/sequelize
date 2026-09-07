@@ -1,10 +1,27 @@
 install packages 
 express dotenv sequelize mysql2
 
+create the database
+
 
 npx sequelize-cli init
 
 
 create a model
-
 npx sequelize-cli model:generate --name User --attributes name:string,email:string
+(it will generate a Model along with migration)
+
+
+How to apply migration 
+npx sequelize-cli db:migrate
+
+
+How to revert a migration
+npx sequelize-cli db:migrate:undo
+
+
+How to create empty migration
+npx sequelize-cli migration:generate --name migration-skeleton
+
+Ex. 
+npx sequelize-cli migration:generate --name addPhoneToUser

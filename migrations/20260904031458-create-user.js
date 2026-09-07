@@ -13,18 +13,16 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         comment: "Here to store the name of the user"
-                
       },
       email: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
+        type: Sequelize.STRING,
         allowNull: false,
-        type: Sequelize.DATE
+        unique: true
       },
-      updatedAt: {
+      gender: {
+        type: Sequelize.ENUM(['male', 'female']),
         allowNull: false,
-        type: Sequelize.DATE
+        defaultValue: 'female'
       }
     });
   },

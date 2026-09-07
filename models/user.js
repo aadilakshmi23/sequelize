@@ -39,6 +39,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM(['male', 'female']),
       allowNull: false,
       defaultValue: 'female'
+    },
+    phone: {
+      type: DataTypes.NUMBER,
+      allowNull: true,         // Change to false if the field is mandatory
+      unique: true         // Change to true if phone numbers must be unique
     }
   }, {
     sequelize,
