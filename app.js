@@ -69,7 +69,7 @@ app.delete('/users/:id', async (req, res, next) => {
 
 app.get('/orders', async (req, res, next) => {
      try {
-          const userId = 4;
+          const userId = 1;
           const  order = await  Order.findAll({
                where:{
                     userId
@@ -83,7 +83,7 @@ app.get('/orders', async (req, res, next) => {
 
 app.get('/orders/:id', async (req, res, next) => {
      try {
-          const userId = 4;
+          const userId = 1;
           const order = await Order.findByPk(req.params.id);
           if (!order || order.userId !== userId) {
                return res.status(404).send('order not found')
@@ -96,8 +96,8 @@ app.get('/orders/:id', async (req, res, next) => {
 
 app.post('/orders', async (req, res, next) => {
      try {
-          const userId = 4;
-          const order = await Order.create(req.body,userId);
+          const userId = 1;
+          const order = await Order.create(req.body);
           res.json(order)
      } catch (error) {
           next(error)
@@ -106,7 +106,7 @@ app.post('/orders', async (req, res, next) => {
 
 app.put('/orders/:id', async (req, res, next) => {
      try {
-          const userId = 4;
+          const userId = 1;
           const order = await Order.findByPk(req.params.id);
           if (!order || order.userId !== userId) {
                return res.status(404).send('order not found')
@@ -120,7 +120,7 @@ app.put('/orders/:id', async (req, res, next) => {
 
 app.delete('/orders/:id', async (req, res, next) => {
      try {
-          const userId = 4;
+          const userId = 1;
           const order = await Order.findByPk(req.params.id);
           if (!order || order.userId !== userId) {
                return res.status(404).send('order not found')
