@@ -67,6 +67,11 @@ app.delete('/users/:id', async (req, res, next) => {
 
 //Orders CRUD
 
+/**
+ * This API is responsible for Getting orders for a particular user
+ * 
+ */
+
 app.get('/orders', async (req, res, next) => {
      try {
           const userId = 1;

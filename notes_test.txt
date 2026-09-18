@@ -1,0 +1,7 @@
+Install Testing packages
+
+npm install --save-dev jest supertest
+
+
+create a file app.test.js or app.spec.js
+
