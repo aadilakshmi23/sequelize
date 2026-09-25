@@ -5,3 +5,49 @@ npm install --save-dev jest supertest
 
 create a file app.test.js or app.spec.js
 
+
+
+
+
+
+
+
+
+
+{
+     success: true,
+     message: 'user created successfully',
+     user: {
+          name: "aadi",
+          phone: 123456789,
+          gender: "female"
+          }
+}
+
+status code is 201
+
+
+
+
+assertions 
+
+
+expect(resizeBy.statuscode) is 201
+
+resizeBy.body -> type is json 
+
+3 keys 
+
+success key is must present -
+success key must be boolean type 
+success key must be true
+
+
+message key must present
+message key type is string 
+message is equal to 'user created successfully'
+
+
+user key must present 
+user key must be object
+

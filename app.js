@@ -5,13 +5,15 @@ const { User, Order } = require('./models');
 const { where } = require('sequelize');
 // const order = require('./models/order');
 
-const PORT = process.env.PORT || 5000;
+
 
 const app = express();
 
 app.use(express.json());
 
-
+app.get('/api/v1/health', (req, res) => {
+     res.json({ 'status': "UP" })
+})
 
 app.get('/users', async (req, res, next) => {
      try {
@@ -37,7 +39,7 @@ app.get('/users/:id', async (req, res, next) => {
 app.post('/users', async (req, res, next) => {
      try {
           const users = await User.create(req.body);
-          res.json(users)
+          res.status(201).json(users)
      } catch (error) {
           next(error)
      }
@@ -75,8 +77,8 @@ app.delete('/users/:id', async (req, res, next) => {
 app.get('/orders', async (req, res, next) => {
      try {
           const userId = 1;
-          const  order = await  Order.findAll({
-               where:{
+          const order = await Order.findAll({
+               where: {
                     userId
                }
           });
@@ -145,6 +147,6 @@ app.use((err, req, res, next) => {
 })
 
 
-app.listen(PORT, () => {
-     console.log(`server is running on ${PORT}`)
-})
+
+
+module.exports =  app

@@ -1,0 +1,423 @@
+<html><head><meta charset="utf-8"/><title>API Test Assertion Report</title><style type="text/css">:root {
+  --text-primary: #111;
+  --text-secondary: #4f4f4f;
+  --success: #006633;
+  --success-bright: #80ffbf;
+  --danger: #cc071e;
+  --danger-bright: #fbdfe0;
+  --warning: #995c00;
+  --warning-bright: #ffeea8;
+  --panel: #eee;
+  --border: #949494;
+  --disabled: #6b6b6b;
+}
+
+html,
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  color: var(--text-primary);
+}
+body {
+  padding: 2rem 1rem;
+}
+.jesthtml-content {
+  margin: 0 auto;
+  max-width: 70rem;
+}
+header {
+  display: flex;
+  align-items: center;
+}
+#title {
+  margin: 0;
+  flex-grow: 1;
+}
+#logo {
+  height: 4rem;
+}
+#timestamp {
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+}
+
+#metadata-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.additional-information-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
+/** SUMMARY */
+#summary {
+  color: var(--text-primary);
+  display: flex;
+  font-family: monospace;
+  font-size: 1rem;
+}
+#summary > div {
+  margin-right: 0.5rem;
+  background: var(--panel);
+  padding: 1rem;
+  min-width: 15rem;
+}
+#summary > div:last-child {
+  margin-right: 0;
+}
+@media only screen and (max-width: 720px) {
+  #summary {
+    flex-direction: column;
+  }
+  #summary > div {
+    margin-right: 0;
+    margin-top: 1rem;
+  }
+  #summary > div:first-child {
+    margin-top: 0;
+  }
+}
+
+.summary-total {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.summary-passed {
+  color: var(--success);
+  border-left: 0.4rem solid var(--success);
+  padding-left: 0.5rem;
+  margin-bottom: 0.15rem;
+}
+.summary-failed,
+.summary-obsolete-snapshots {
+  color: var(--danger);
+  border-left: 0.4rem solid var(--danger);
+  padding-left: 0.5rem;
+  margin-bottom: 0.15rem;
+}
+.summary-pending {
+  color: var(--warning);
+  border-left: 0.4rem solid var(--warning);
+  padding-left: 0.5rem;
+  margin-bottom: 0.15rem;
+}
+.summary-empty {
+  color: var(--disabled);
+  border-left: 0.4rem solid var(--disabled);
+  margin-bottom: 0.15rem;
+}
+
+.test-result {
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+}
+.test-result:last-child {
+  border: 0;
+}
+.test-result.passed {
+  background-color: var(--success-bright);
+  color: var(--success);
+}
+.test-result.failed {
+  background-color: var(--danger-bright);
+  color: var(--danger);
+}
+.test-result.pending {
+  background-color: var(--warning-bright);
+  color: var(--warning);
+}
+
+.test-info {
+  display: flex;
+  justify-content: space-between;
+}
+.test-suitename {
+  width: 20%;
+  text-align: left;
+  font-weight: bold;
+  word-break: break-word;
+}
+.test-title {
+  width: 40%;
+  text-align: left;
+  font-style: italic;
+}
+.test-status {
+  width: 20%;
+  text-align: right;
+}
+.test-duration {
+  width: 10%;
+  text-align: right;
+  font-size: 0.85rem;
+}
+
+.failureMessages {
+  padding: 0 1rem;
+  margin-top: 1rem;
+  border-top: 1px dashed var(--danger);
+}
+.failureMessages.suiteFailure {
+  border-top: none;
+}
+.failureMsg {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
+.suite-container {
+  margin-bottom: 1rem;
+}
+.suite-info {
+  padding: 1rem;
+  background-color: var(--panel);
+  color: var(--text-secondary);
+  border: 0.15rem solid;
+  border-color: var(--panel);
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+.suite-info:hover {
+  border-color: var(--border);
+  cursor: pointer;
+}
+.suite-info .suite-path {
+  word-break: break-all;
+  flex-grow: 1;
+  font-family: monospace;
+  font-size: 1rem;
+}
+.suite-info .suite-time {
+  margin-left: 1rem;
+  padding: 0.2rem 0.3rem;
+  font-size: 0.85rem;
+}
+.suite-info .suite-time.warn {
+  background-color: var(--danger);
+  color: #fff;
+}
+.suite-info:before {
+  content: "\2303";
+  display: inline-block;
+  margin-right: 1rem;
+  transform: rotate(180deg) translateY(0.15rem);
+}
+.suite-container[open] .suite-info:before {
+  transform: rotate(0deg) translateY(0.15rem);
+}
+
+/* CONSOLE LOGS */
+.suite-consolelog {
+  margin-bottom: 0.25rem;
+  padding: 1rem;
+  background-color: var(--panel);
+}
+.suite-consolelog-header {
+  font-weight: bold;
+}
+.suite-consolelog-item {
+  padding: 0.5rem;
+}
+.suite-consolelog-item pre {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.suite-consolelog-item-origin {
+  color: var(--text-secondary);
+  font-weight: bold;
+}
+.suite-consolelog-item-message {
+  color: var(--text-primary);
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+
+/* OBSOLETE SNAPSHOTS */
+.suite-obsolete-snapshots {
+  margin-bottom: 0.25rem;
+  padding: 1rem;
+  background-color: var(--danger-bright);
+  color: var(--danger);
+}
+.suite-obsolete-snapshots-header {
+  font-weight: bold;
+}
+.suite-obsolete-snapshots-item {
+  padding: 0.5rem;
+}
+.suite-obsolete-snapshots-item pre {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.suite-obsolete-snapshots-item-message {
+  color: var(--text-primary);
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+</style></head><body><main class="jesthtml-content"><header><h1 id="title">API Test Assertion Report</h1></header><section id="metadata-container"><div id="timestamp">Started: 2026-09-25 20:28:59</div><div id="summary"><div id="suite-summary"><div class="summary-total">Suites (1)</div><div class="summary-passed ">1 passed</div><div class="summary-failed  summary-empty">0 failed</div><div class="summary-pending  summary-empty">0 pending</div></div><div id="test-summary"><div class="summary-total">Tests (3)</div><div class="summary-passed ">3 passed</div><div class="summary-failed  summary-empty">0 failed</div><div class="summary-pending  summary-empty">0 pending</div></div></div></section><details id="suite-1" class="suite-container" open=""><summary class="suite-info"><div class="suite-path">C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js</div><div class="suite-time">2.155s</div></summary><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">API Unit/Integration Tests</div><div class="test-title">GET /api/v1/health should return 200 OK</div><div class="test-status">passed</div><div class="test-duration">0.039s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">API Unit/Integration Tests</div><div class="test-title">POST /users should create a user when name and email is provided</div><div class="test-status">passed</div><div class="test-duration">0.043s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">test suite 2</div><div class="test-title">GET /api/v1/health should return 200 OK</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div></div><div class="suite-consolelog"><div class="suite-consolelog-header">Console Log</div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at _log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\dotenv\lib\main.js:131:11)
+    at Object.configDotenv (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\dotenv\lib\main.js:309:5)
+    at Object.config (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\dotenv\lib\main.js:323:25)
+    at Object.config (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.js:2:19)
+    at ModuleExecutor.exec (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\jest-runtime\build\index.js:3055:26)
+    at CjsLoader.loadModule (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\jest-runtime\build\index.js:440:36)
+    at CjsLoader.requireModule (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\jest-runtime\build\index.js:335:12)
+    at Runtime.requireModule (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\jest-runtime\build\index.js:4981:27)
+    at Runtime.requireModuleOrMock (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\jest-runtime\build\index.js:5122:19)
+    at RequireBuilder.requireDispatch (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\jest-runtime\build\index.js:4832:51)
+    at moduleRequire (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\jest-runtime\build\index.js:3972:138)
+    at Object.require (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js:3:13)
+    at ModuleExecutor.exec (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\jest-runtime\build\index.js:3055:26)
+    at CjsLoader.loadModule (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\jest-runtime\build\index.js:440:36)
+    at CjsLoader.requireModule (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\jest-runtime\build\index.js:335:12)
+    at Runtime.requireModule (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\jest-runtime\build\index.js:4981:27)
+    at jestAdapter (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\jest-circus\build\runner.js:96:13)
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at runTestInternal (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\jest-runner\build\index.js:247:16)
+    at runTest (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\jest-runner\build\index.js:315:7)</pre><pre class="suite-consolelog-item-message">◇ injected env (1) from .env // tip: ⌘ enable debugging { debug: true }</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at Sequelize.log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:1281:15)
+    at Query._logQuery (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query.js:376:22)
+    at Query.run (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\mysql\query.js:39:27)
+    at C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:650:28
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at Sequelize.authenticate (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:972:5)
+    at Object.&lt;anonymous&gt; (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js:9:11)</pre><pre class="suite-consolelog-item-message">Executing (default): SELECT 1+1 AS result</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at Sequelize.log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:1281:15)
+    at Query._logQuery (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query.js:376:22)
+    at Query.run (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\mysql\query.js:39:27)
+    at C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:650:28
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at MySQLQueryInterface.dropTable (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query-interface.js:265:5)
+    at Order.drop (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\model.js:1448:12)
+    at Sequelize.drop (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:927:9)
+    at Sequelize.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:807:7)
+    at Object.&lt;anonymous&gt; (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js:14:11)</pre><pre class="suite-consolelog-item-message">Executing (default): DROP TABLE IF EXISTS `Orders`;</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at Sequelize.log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:1281:15)
+    at Query._logQuery (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query.js:376:22)
+    at Query.run (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\mysql\query.js:39:27)
+    at C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:650:28
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at MySQLQueryInterface.dropTable (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query-interface.js:265:5)
+    at User.drop (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\model.js:1448:12)
+    at Sequelize.drop (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:927:9)
+    at Sequelize.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:807:7)
+    at Object.&lt;anonymous&gt; (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js:14:11)</pre><pre class="suite-consolelog-item-message">Executing (default): DROP TABLE IF EXISTS `Users`;</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at Sequelize.log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:1281:15)
+    at Query._logQuery (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query.js:376:22)
+    at Query.run (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\mysql\query.js:39:27)
+    at C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:650:28
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at Sequelize.drop (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:945:27)
+    at Sequelize.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:807:7)
+    at Object.&lt;anonymous&gt; (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js:14:11)</pre><pre class="suite-consolelog-item-message">Executing (default): SELECT CONSTRAINT_NAME as constraint_name,CONSTRAINT_NAME as constraintName,CONSTRAINT_SCHEMA as constraintSchema,CONSTRAINT_SCHEMA as constraintCatalog,TABLE_NAME as tableName,TABLE_SCHEMA as tableSchema,TABLE_SCHEMA as tableCatalog,COLUMN_NAME as columnName,REFERENCED_TABLE_SCHEMA as referencedTableSchema,REFERENCED_TABLE_SCHEMA as referencedTableCatalog,REFERENCED_TABLE_NAME as referencedTableName,REFERENCED_COLUMN_NAME as referencedColumnName FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE where TABLE_NAME = 'Orders' AND CONSTRAINT_NAME!='PRIMARY' AND CONSTRAINT_SCHEMA='my_test_db' AND REFERENCED_TABLE_NAME IS NOT NULL;</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at Sequelize.log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:1281:15)
+    at Query._logQuery (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query.js:376:22)
+    at Query.run (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\mysql\query.js:39:27)
+    at C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:650:28
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at Sequelize.drop (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:945:27)
+    at Sequelize.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:807:7)
+    at Object.&lt;anonymous&gt; (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js:14:11)</pre><pre class="suite-consolelog-item-message">Executing (default): SELECT CONSTRAINT_NAME as constraint_name,CONSTRAINT_NAME as constraintName,CONSTRAINT_SCHEMA as constraintSchema,CONSTRAINT_SCHEMA as constraintCatalog,TABLE_NAME as tableName,TABLE_SCHEMA as tableSchema,TABLE_SCHEMA as tableCatalog,COLUMN_NAME as columnName,REFERENCED_TABLE_SCHEMA as referencedTableSchema,REFERENCED_TABLE_SCHEMA as referencedTableCatalog,REFERENCED_TABLE_NAME as referencedTableName,REFERENCED_COLUMN_NAME as referencedColumnName FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE where TABLE_NAME = 'Users' AND CONSTRAINT_NAME!='PRIMARY' AND CONSTRAINT_SCHEMA='my_test_db' AND REFERENCED_TABLE_NAME IS NOT NULL;</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at Sequelize.log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:1281:15)
+    at Query._logQuery (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query.js:376:22)
+    at Query.run (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\mysql\query.js:39:27)
+    at C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:650:28
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at MySQLQueryInterface.dropTable (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query-interface.js:265:5)
+    at Order.drop (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\model.js:1448:12)
+    at Sequelize.drop (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:953:7)
+    at Sequelize.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:807:7)
+    at Object.&lt;anonymous&gt; (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js:14:11)</pre><pre class="suite-consolelog-item-message">Executing (default): DROP TABLE IF EXISTS `Orders`;</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at Sequelize.log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:1281:15)
+    at Query._logQuery (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query.js:376:22)
+    at Query.run (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\mysql\query.js:39:27)
+    at C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:650:28
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at MySQLQueryInterface.dropTable (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query-interface.js:265:5)
+    at User.drop (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\model.js:1448:12)
+    at Sequelize.drop (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:953:7)
+    at Sequelize.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:807:7)
+    at Object.&lt;anonymous&gt; (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js:14:11)</pre><pre class="suite-consolelog-item-message">Executing (default): DROP TABLE IF EXISTS `Users`;</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at Sequelize.log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:1281:15)
+    at Query._logQuery (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query.js:376:22)
+    at Query.run (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\mysql\query.js:39:27)
+    at C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:650:28
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at MySQLQueryInterface.dropTable (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query-interface.js:265:5)
+    at User.drop (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\model.js:1448:12)
+    at User.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\model.js:1346:7)
+    at Sequelize.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:825:9)
+    at Object.&lt;anonymous&gt; (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js:14:11)</pre><pre class="suite-consolelog-item-message">Executing (default): DROP TABLE IF EXISTS `Users`;</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at Sequelize.log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:1281:15)
+    at Query._logQuery (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query.js:376:22)
+    at Query.run (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\mysql\query.js:39:27)
+    at C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:650:28
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at MySQLQueryInterface.createTable (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query-interface.js:229:12)
+    at User.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\model.js:1353:7)
+    at Sequelize.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:825:9)
+    at Object.&lt;anonymous&gt; (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js:14:11)</pre><pre class="suite-consolelog-item-message">Executing (default): CREATE TABLE IF NOT EXISTS `Users` (`id` INTEGER NOT NULL auto_increment , `name` VARCHAR(255) NOT NULL COMMENT 'Here to store the name of the user', `email` VARCHAR(255) NOT NULL UNIQUE, `gender` ENUM('male', 'female') NOT NULL DEFAULT 'female', `phone` BIGINT UNIQUE, PRIMARY KEY (`id`)) ENGINE=InnoDB;</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at Sequelize.log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:1281:15)
+    at Query._logQuery (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query.js:376:22)
+    at Query.run (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\mysql\query.js:39:27)
+    at C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:650:28
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at MySQLQueryInterface.showIndex (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query-interface.js:600:12)
+    at User.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\model.js:1413:29)
+    at Sequelize.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:825:9)
+    at Object.&lt;anonymous&gt; (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js:14:11)</pre><pre class="suite-consolelog-item-message">Executing (default): SHOW INDEX FROM `Users` FROM `my_test_db`</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at Sequelize.log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:1281:15)
+    at Query._logQuery (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query.js:376:22)
+    at Query.run (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\mysql\query.js:39:27)
+    at C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:650:28
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at MySQLQueryInterface.dropTable (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query-interface.js:265:5)
+    at Order.drop (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\model.js:1448:12)
+    at Order.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\model.js:1346:7)
+    at Sequelize.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:825:9)
+    at Object.&lt;anonymous&gt; (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js:14:11)</pre><pre class="suite-consolelog-item-message">Executing (default): DROP TABLE IF EXISTS `Orders`;</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at Sequelize.log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:1281:15)
+    at Query._logQuery (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query.js:376:22)
+    at Query.run (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\mysql\query.js:39:27)
+    at C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:650:28
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at MySQLQueryInterface.createTable (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query-interface.js:229:12)
+    at Order.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\model.js:1353:7)
+    at Sequelize.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:825:9)
+    at Object.&lt;anonymous&gt; (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js:14:11)</pre><pre class="suite-consolelog-item-message">Executing (default): CREATE TABLE IF NOT EXISTS `Orders` (`id` INTEGER NOT NULL auto_increment , `userId` INTEGER NOT NULL, `totalAmount` DECIMAL(10,2) NOT NULL DEFAULT 0, `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`), FOREIGN KEY (`userId`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE) ENGINE=InnoDB;</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at Sequelize.log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:1281:15)
+    at Query._logQuery (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query.js:376:22)
+    at Query.run (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\mysql\query.js:39:27)
+    at C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:650:28
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at MySQLQueryInterface.showIndex (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query-interface.js:600:12)
+    at Order.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\model.js:1413:29)
+    at Sequelize.sync (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:825:9)
+    at Object.&lt;anonymous&gt; (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js:14:11)</pre><pre class="suite-consolelog-item-message">Executing (default): SHOW INDEX FROM `Orders` FROM `my_test_db`</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at Object.log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js:15:19)
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)</pre><pre class="suite-consolelog-item-message">Test Database connected and synced successfully.</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at Sequelize.log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:1281:15)
+    at Query._logQuery (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query.js:376:22)
+    at Query.run (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\mysql\query.js:39:27)
+    at C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\sequelize.js:650:28
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at MySQLQueryInterface.insert (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\dialects\abstract\query-interface.js:795:21)
+    at User.save (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\model.js:4154:35)
+    at User.create (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\node_modules\sequelize\src\model.js:2305:12)
+    at C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.js:41:25</pre><pre class="suite-consolelog-item-message">Executing (default): INSERT INTO `Users` (`id`,`name`,`email`,`gender`) VALUES (DEFAULT,?,?,?);</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at Object.log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js:41:19)
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)</pre><pre class="suite-consolelog-item-message">[REQUEST] POST /api/v1/users 
+Payload: {
+  "name": "Alice",
+  "email": "alice1790348342253@gmail.com"
+}</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at Object.log (C:\Users\aadil\OneDrive\Documents\Desktop\nodejs_expressjs_sequelize_mysql\app.test.js:42:19)
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)</pre><pre class="suite-consolelog-item-message">[RESPONSE] Status: 201 
+Body: {
+  "gender": "female",
+  "id": 1,
+  "name": "Alice",
+  "email": "alice1790348342253@gmail.com"
+}</pre></div></div></details></main></body></html>

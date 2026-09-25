@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'female'
     },
     phone: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.BIGINT,
       allowNull: true,         // Change to false if the field is mandatory
       unique: true         // Change to true if phone numbers must be unique
     }
