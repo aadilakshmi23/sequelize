@@ -1,0 +1,97 @@
+{
+  "info": {
+    "name": "API Test Collection For Users and Orders",
+    "_postman_id": "12345678-1234-1234-1234-123456789012",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create User",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const uniqueNumber = Date.now();",
+              "const uniquePhone = `${Math.floor(1e8 + Math.random() * 9e8)}`;",
+              "const uniqueEmail = `john.doe${uniqueNumber}@example.com`;",
+              "pm.environment.set(\"uniqueEmail\", uniqueEmail);",
+              "pm.environment.set(\"uniquePhone\", uniquePhone);"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "pm.test(\"Response body is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "",
+              "pm.test(\"Response has id\", function () {",
+              "    pm.expect(jsonData).to.have.property(\"id\");",
+              "});",
+              "",
+              "pm.test(\"Response has name\", function () {",
+              "    pm.expect(jsonData).to.have.property(\"name\");",
+              "});",
+              "",
+              "pm.test(\"Response name is correct\", function () {",
+              "    pm.expect(jsonData.name).to.eql(\"John Doe\");",
+              "});",
+              "",
+              "pm.test(\"Response email is correct\", function () {",
+              "    pm.expect(jsonData.email).to.eql(pm.environment.get(\"uniqueEmail\"));",
+              "});",
+              "",
+              "pm.test(\"Response gender is correct\", function () {",
+              "    pm.expect(jsonData.gender).to.eql(\"male\");",
+              "});",
+              "",
+              "pm.test(\"Response phone is correct\", function () {",
+              "    pm.expect(jsonData.phone).to.eql(pm.environment.get(\"uniquePhone\"));",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"{{uniqueEmail}}\",\n  \"gender\": \"male\",\n  \"phone\": \"{{uniquePhone}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "users"
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+Testing with newman 
+
+install newman npm package globally 
+
+npm i -g newman
+
+npm i -g newman-reporter-htmlextra
+
+
+we have to create two files
+
+1. <collection_name>.json 
+2. <environment_name>.json -> for environment variables
+
+
+// For Default test
+newman run <collection_name>.json -e <environment_name>.json
+
+ex: 
+
+// For HTML Reports
+newman run <collection_name>.json -e <environment_name>.json -r htmlextra
+
+newman run ordersCollection.json -e test_environment.json -r htmlextra
+
+// For Multiple Report formats
+newman run <collection_name>.json -e <environment_name>.json -r htmlextra,cli,json
+
+
+
+
+{
+{
+"name":"users collection",
+"item":[
+  {
+
+  }
+]
+},
+{
+"name": "orders collection",
+"item": [
+  {}
+]
+}
+}

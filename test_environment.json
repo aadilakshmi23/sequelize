@@ -1,0 +1,12 @@
+{
+  "id": "98765432-9876-9876-9876-987654321098",
+  "name": "API Test Environment",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment"
+}
